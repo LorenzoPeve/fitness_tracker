@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2>Add Exercise</h2>
+    <form action="add_exercise" method="post">
+
+      <div class="row mb-3">
+        <div class="col-md-1">
+          <label for="date">When:</label>
+        </div>
+        <div class="col-md-2">
+          <input type="date" class="form-control" name="date" required />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-1">
+          <label for="exercise">What:</label>
+        </div>
+        <div class="col-md-3">
+          <input type="text" class="form-control" name="exercise" required />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-1">
+          <label for="n_reps">Reps:</label>
+        </div>
+        <div class="col-md-6">
+          <input type="range" class="form-range" name="n_reps" id="rangeReps" required min="0" max="20" step="1" />
+        </div>
+        <div class="col-md-3">
+          <span id="valueReps">0</span>
+        </div>
+      </div>     
+
+      <div class="row mb-3">
+        <div class="col-md-1">
+          <label for="n_sets">Sets:</label>
+        </div>
+        <div class="col-md-6">
+          <input type="range" class="form-range" name="n_sets" id="rangeSets" required min="1" max="20" step="1" />
+        </div>
+        <div class="col-md-3">
+          <span id="valueSets">0</span>
+        </div>
+      </div>
+      
+      <div class="row mb-3">
+        <div class="col-md-1">
+          <label for="weight">Weight:</label>
+        </div>
+        <div class="col-md-3">
+          <input type="number" class="form-control" name="weight" required />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+<script>
+  // Update the value display when the slider changes
+  document.getElementById('rangeReps').addEventListener('input', function () {
+    document.getElementById('valueReps').textContent = this.value;
+  });
+
+  document.getElementById('rangeSets').addEventListener('input', function () {
+    document.getElementById('valueSets').textContent = this.value;
+  });
+</script>
+{% endblock content %}
+
