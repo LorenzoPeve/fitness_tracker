@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 
 from .models import User
 from . import database
@@ -57,4 +57,28 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect("index") 
- 
+
+def register(request):
+
+    if request.method == "GET":
+        return render(request, "app/register.html")
+
+    username = request.POST["username"]
+    email = request.POST["email"]
+    password = request.POST["password"]
+
+    if User.objects.filter(username=username).exists():
+        return render(request, "app/register.html", {
+            "invalid_message": "Username already taken."
+        })
+
+    if User.objects.filter(email=email).exists():
+        return render(request, "app/register.html", {
+            "invalid_message": "Email already taken."
+        })
+
+    user = User.objects.create_user(username, email, password)
+    user.save()    
+    login(request, user)
+    return redirect("index")
+
