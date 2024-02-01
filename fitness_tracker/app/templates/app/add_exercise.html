@@ -22,24 +22,33 @@
                   <form action="{% url 'add_exercise' %}" method="post">
                       {% csrf_token %}
                       <div class="mb-3">
-                          <label for="date">When</label>
+                          <label for="date"><b>When</b></label>
                           <input type="date" class="form-control" id="date" name="date" required />
                       </div>
                       <div class="mb-3">
-                        <label for="exercise">Exercise</label>
-                        <input type="text" class="form-control" name="exercise" required />
+                        <label for="exercise"><b>Exercise</b></label>
+                        <select class="form-select" name="exercise" aria-label="Default select example">
+
+                          {% for exercise in exercises %}
+                          <option value="{{ exercise }}">{{exercise |title }}</option>
+                          {% endfor %}
+                          <option value="add_your_own"><b>------- Add your own -------</b></option>
+                        </select>
+                        <div class="d-flex justify-content-end">
+                          <p class="small text-muted"><em>Scroll to bottom to add your own</em></p>
+                        </div>
                       </div>
                       <div class="row mb-3">
                         <div class="col">
-                          <label for="weight">Weight</label>
+                          <label for="weight"><b>Weight</b></label>
                           <input type="number" class="form-control" id="weight" name="weight" step="any" min="0" required/>
                         </div>
                         <div class="col">
-                            <label for="n_reps">Reps</label>
+                            <label for="n_reps"><b>Reps</b></label>
                             <input type="number" class="form-control" id="n_reps" name="n_reps" step="1" min="1" required/>
                         </div>
                         <div class="col">
-                        <label for="n_sets">Sets</label>
+                        <label for="n_sets"><b>Sets</b></label>
                         <input type="number" class="form-control" id="n_sets" name="n_sets" step="1" value="1" required />
                         </div>
                       </div>
