@@ -38,13 +38,9 @@ def add_exercise(
                 """,
                 (username, date, exercise, n_reps, weight)
             )
-            conn.commit()
         except psycopg2.errors.ForeignKeyViolation as e:
-            if "Key (username)" in str(e):
-                return 'Invalid username'
-            elif "Key (username)" in str(e):
-                return 'Invalid exercise'
+            if "Key (username, exercise)" in str(e):
+                return 'Invalid (username, exercise) tuple'
             else:
                 raise e
-        else:
-            conn.commit()
+    conn.commit()
