@@ -35,7 +35,7 @@
 						<div class="mb-3">
 							<label for="exercise_type"><b>Exercise Type</b></label><br>				
 							<div class="d-grid gap-2 d-md-flex justify-content-md-center">
-								<input type="radio" class="btn-check" name="exercise_type" value='weight_reps' id="is_weight_reps" autocomplete="off">
+								<input type="radio" class="btn-check" name="exercise_type" value='weight_reps' id="is_weight_reps" autocomplete="off" required>
 								<label class="btn btn-outline-primary btn-sm" for="is_weight_reps">Weight & Reps</label>
 							
 								<input type="radio" class="btn-check" name="exercise_type" value='amrap' id="is_amrap" autocomplete="off">
@@ -88,28 +88,28 @@
                             <div class="row mb-3">
                                 <div class="col">
                                     <label for="weight"><b>Weight</b></label>
-                                    <input type="number" class="form-control" id="weight" name="weight" step="any" min="0" required/>
+                                    <input type="number" class="form-control" id="weight" name="weight" step="any" min="0"/>
                                 </div>
                                 <div class="col">
                                     <label for="n_reps"><b>Reps</b></label>
-                                    <input type="number" class="form-control" id="n_reps" name="n_reps" step="1" min="1" required/>
+                                    <input type="number" class="form-control" id="n_reps" name="n_reps" step="1" min="1"/>
                                 </div>
                                 <div class="col">
                                     <label for="n_sets"><b>Sets</b></label>
-                                    <input type="number" class="form-control" id="n_sets" name="n_sets" step="1" value="1" required />
+                                    <input type="number" class="form-control" id="n_sets" name="n_sets" step="1" value="1" />
                                 </div>
                             </div>
                             <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1"><b>Done after WOD?</b></label>
+                                <input type="checkbox" class="form-check-input" name="is_after_wod">
+                                <label class="form-check-label" for="is_after_wod"><b>Done after WOD?</b></label>
                             </div>
                         </div>
 
-                        <!-- Input for EMOM exercise Type Radio Buttons Grid -->
+                        <!-- Input for EMOM  ######################-->
                         <div id='emom_input' style="display: none;">
                             <div class="mb-3">
                                 <label for="emom_duration"><b>Duration</b></label>
-                                <input type="number" class="form-control" name="emom_duration" step="any" min="0" required/>
+                                <input type="number" class="form-control" name="emom_duration" step="1" min="1"/>
                             </div>
                             <div class="mb-3">
                                 <label for="emom_wod"><b>WOD</b></label>
@@ -117,11 +117,11 @@
                             </div>
                         </div>
 
-                        <!-- Input for AMRAP exercise Type Radio Buttons Grid -->
+                        <!-- Input for AMRAP  ######################-->
                         <div id='amrap_input' style="display: none;">
                             <div class="mb-3">
                                 <label for="amrap_timecap"><b>Timecap</b></label>
-                                <input type="number" class="form-control" name="amrap_timecap" step="any" min="0" required/>
+                                <input type="number" class="form-control" name="amrap_timecap" step="1" min="1"/>
                             </div>
                             <div class="mb-3">
                                 <label for="amrap_wod"><b>WOD</b></label>
@@ -134,11 +134,34 @@
                             </div>
                         </div>
 
-
+                        <!-- Input for RFT  ######################-->
+                        <div id='rft_input' style="display: none;">
+                            <div class="mb-3">
+                                <label for="rft_rounds"><b>Rounds</b></label>
+                                <input type="number" class="form-control" name="rft_rounds" step="1" min="1"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="rft_wod"><b>WOD</b></label>
+                                <textarea class="form-control" name="rft_wod" rows="3" placeholder="Describe WOD..."></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label><b>Time</b></label>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="rft_minutes">Minutes</label>
+                                        <input type="number" class="form-control" name="rft_minutes" step="1" min="0" max="59"/>
+                                    </div>
+                                    <div class="col">
+                                        <label for="rft_seconds">Seconds</label>
+                                        <input type="number" class="form-control" name="rft_seconds" step="1" min="0" max="59"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="mb-3">
                             <label for="activity_comments"><b>Comments</b></label>
-                            <textarea class="form-control" id="activity_comments" rows="1"></textarea>
+                            <textarea class="form-control" name="activity_comments" rows="1"></textarea>
                         </div>
                         <div id="validator" class="form-text mb-2" style="color: red;"></div>
                         <button type="submit" class="btn btn-primary btn-block" style="background-color: #0738C1; border: none;">Add</button>
@@ -232,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const inputValue = amrapScoreInput.value.trim();
         const regex = /^[0-9]+\+*[0-9]*$/;
 
-        if (!regex.test(inputValue)) {
+        if (inputValue.length > 0 && !regex.test(inputValue)) {
             amrapScoreError.style.display = "block";
         } else {
             amrapScoreError.style.display = "none";
@@ -247,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const weightliftingInput = document.getElementById("weightlifting_input");
     const emomInput = document.getElementById("emom_input");
     const amrapInput = document.getElementById("amrap_input");
-
+    const rftInput = document.getElementById("rft_input");
 
     radioButtons.forEach(function(radioButton) {
         radioButton.addEventListener("change", function() {
@@ -257,25 +280,35 @@ document.addEventListener("DOMContentLoaded", function () {
                 weightliftingInput.style.display = "block";
                 emomInput.style.display = "none";
                 amrapInput.style.display = "none";
+                rftInput.style.display = "none";
 
             } else if (this.value === "emom" && this.checked) {
 
                 emomInput.style.display = "block";
                 weightliftingInput.style.display = "none";
                 amrapInput.style.display = "none";
+                rftInput.style.display = "none";
 
             } else if (this.value === "amrap" && this.checked) {
 
                 emomInput.style.display = "none";
                 weightliftingInput.style.display = "none";
                 amrapInput.style.display = "block";
+                rftInput.style.display = "none";
 
-            }
-             else {
+            } else if (this.value === "rft" && this.checked) {
+
+                emomInput.style.display = "none";
+                weightliftingInput.style.display = "none";
+                amrapInput.style.display = "none";
+                rftInput.style.display = "block";
+
+            } else {
 
                 weightliftingInput.style.display = "none";
                 emomInput.style.display = "none";
                 amrapInput.style.display = "none";
+                rftInput.style.display = "none";
             }
         });
     });
