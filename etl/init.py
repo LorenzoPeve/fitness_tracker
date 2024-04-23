@@ -153,16 +153,17 @@ INSERT INTO emom (user_id, wod, duration, date, comment) VALUES
 	('lpeve', '10 snatches\r\n10 pullups', 12, '04-17-2024', NULL),
 	('lpeve', '10 snatches\r\n10 pullups', 12, '04-18-2024', NULL);
 
-INSERT INTO rounds_for_time VALUES
-	(1, 'lpeve', '5 snatches; 5 muscle ups; 5 bench press', 5, 50.24,'04-16-2024', 'killer wod'),
-	(2, 'lpeve', '5 snatches; 5 muscle ups; 5 bench press', 5, 150.24,'04-16-2024', 'killer wod');
+INSERT INTO rounds_for_time (user_id, wod, rounds, time, date, comment)
+VALUES
+	('lpeve', '5 snatches; 5 muscle ups; 5 bench press', 5, 50.24,'04-16-2024', 'killer wod'),
+	('lpeve', '5 snatches; 5 muscle ups; 5 bench press', 5, 150.24,'04-16-2024', 'killer wod');
 
 INSERT INTO hero_and_benchmarks_wods VALUES
 	('lpeve', 'Murph', 'For time: 1 mile Run 100 Pull-ups 200 Push-ups 300 Squats 1 mile Run'),
 	('lpeve', 'JT', '21-15-9 reps for time of: Handstand push-ups Ring dips Push-ups');
 
-INSERT INTO hero_and_benchmarks VALUES
-	(1, 'lpeve', 'Murph', 50.24,'04-16-2024', 'w/ vest');
+INSERT INTO hero_and_benchmarks (user_id, name, time, date, comment) VALUES
+	('lpeve', 'Murph', 50.24,'04-16-2024', 'w/ vest');
 	
 INSERT INTO cardio (user_id, activity, distance_km, time, date, comment) VALUES 
 	('lpeve', 'running', 10, 48.55, '04-16-2024', 'w/ vest'),
