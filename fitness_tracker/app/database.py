@@ -47,19 +47,23 @@ def add_exercise(
     comment: str
 ):
 
-    print(user_id, exercise, weight, reps, date, after_wod, comment)
     assert float(weight)
     assert int(reps)
 
     cur = CONN.cursor()
-    cur.execute(
-        """
-        INSERT INTO weightlifting
-        (user_id, exercise, weight, reps, date, after_wod, comment)
-        VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """, (user_id, exercise, weight, reps, date, after_wod, comment)
-    )
-    CONN.commit()
+    try:
+        cur.execute(
+            """
+            INSERT INTO weightlifting
+            (user_id, exercise, weight, reps, date, after_wod, comment)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """, (user_id, exercise, weight, reps, date, after_wod, comment)
+        )
+    except Exception as e:
+        CONN.rollback()
+        raise e
+    else:
+        CONN.commit()
 
 @set_inputs_to_none_if_empty
 def add_amrap(
@@ -73,7 +77,6 @@ def add_amrap(
     assert int(timecap)
 
     cur = CONN.cursor()
-
     try:
         cur.execute(
             """
@@ -82,9 +85,9 @@ def add_amrap(
             VALUES (%s, %s, %s, %s, %s, %s)
             """, (user_id, wod, timecap, rounds_plus_reps, date, comment)
         )
-    except Exception:
+    except Exception as e:
         CONN.rollback()
-        raise Exception
+        raise e
     else:
         CONN.commit()
 
@@ -107,9 +110,9 @@ def add_emom(
             VALUES (%s, %s, %s, %s, %s)
             """, (user_id, wod, duration, date, comment)
         )
-    except Exception:
+    except Exception as e:
         CONN.rollback()
-        raise Exception
+        raise e
     else:
         CONN.commit()
 
@@ -134,9 +137,9 @@ def add_cardio(
             VALUES (%s, %s, %s, %s, %s, %s)
             """, (user_id, activity, distance, time, date, comment)
         )
-    except Exception:
+    except Exception as e:
         CONN.rollback()
-        raise Exception
+        raise e
     else:
         CONN.commit()
 
@@ -161,8 +164,8 @@ def add_rounds_for_time(
             VALUES (%s, %s, %s, %s, %s, %s)
             """, (user_id, wod, rounds, time, date, comment)
         )
-    except Exception:
+    except Exception as e:
         CONN.rollback()
-        raise Exception
+        raise e
     else:
         CONN.commit()
