@@ -73,14 +73,20 @@ def add_amrap(
     assert int(timecap)
 
     cur = CONN.cursor()
-    cur.execute(
-        """
-        INSERT INTO amrap
-        (user_id, wod, timecap, rounds_plus_reps, date, comment)
-        VALUES (%s, %s, %s, %s, %s, %s)
-        """, (user_id, wod, timecap, rounds_plus_reps, date, comment)
-    )
-    CONN.commit()
+
+    try:
+        cur.execute(
+            """
+            INSERT INTO amrap
+            (user_id, wod, timecap, rounds_plus_reps, date, comment)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            """, (user_id, wod, timecap, rounds_plus_reps, date, comment)
+        )
+    except Exception:
+        CONN.rollback()
+        raise Exception
+    else:
+        CONN.commit()
 
 @set_inputs_to_none_if_empty
 def add_emom(
@@ -93,14 +99,19 @@ def add_emom(
     assert int(duration)
 
     cur = CONN.cursor()
-    cur.execute(
-        """
-        INSERT INTO emom
-        (user_id, wod, duration, date, comment)
-        VALUES (%s, %s, %s, %s, %s)
-        """, (user_id, wod, duration, date, comment)
-    )
-    CONN.commit()
+    try:
+        cur.execute(
+            """
+            INSERT INTO emom
+            (user_id, wod, duration, date, comment)
+            VALUES (%s, %s, %s, %s, %s)
+            """, (user_id, wod, duration, date, comment)
+        )
+    except Exception:
+        CONN.rollback()
+        raise Exception
+    else:
+        CONN.commit()
 
 @set_inputs_to_none_if_empty
 def add_cardio(
@@ -115,12 +126,43 @@ def add_cardio(
     assert float(time)
 
     cur = CONN.cursor()
-    cur.execute(
-        """
-        INSERT INTO cardio
-        (user_id, activity, distance_km, time, date, comment)
-        VALUES (%s, %s, %s, %s, %s, %s)
-        """, (user_id, activity, distance, time, date, comment)
-    )
-    CONN.commit()
+    try:
+        cur.execute(
+            """
+            INSERT INTO cardio
+            (user_id, activity, distance_km, time, date, comment)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            """, (user_id, activity, distance, time, date, comment)
+        )
+    except Exception:
+        CONN.rollback()
+        raise Exception
+    else:
+        CONN.commit()
 
+@set_inputs_to_none_if_empty
+def add_rounds_for_time(
+    user_id: str,
+    wod: str,
+    rounds: int,
+    time: float,
+    date: str,
+    comment: str
+):    
+    assert float(rounds)
+    assert float(time)
+
+    cur = CONN.cursor()
+    try:
+        cur.execute(
+            """
+            INSERT INTO rounds_for_time
+            (user_id, wod, rounds, time, date, comment)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            """, (user_id, wod, rounds, time, date, comment)
+        )
+    except Exception:
+        CONN.rollback()
+        raise Exception
+    else:
+        CONN.commit()
