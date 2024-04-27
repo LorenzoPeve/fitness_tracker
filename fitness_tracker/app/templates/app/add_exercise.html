@@ -24,7 +24,23 @@
                 <div class="card-body">
                     <form action="{% url 'add_exercise' %}" method="post">
                         {% csrf_token %}
-
+                        {% if message_type == 'success' %}
+                            <div class="alert alert-success p-2" role="alert">
+                                Exercise recorded!
+                            </div>
+                        {% elif message_type == 'exception' %}
+                            {% if message %}
+                                <div class="alert alert-danger p-2" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% else %}
+                                <div class="alert alert-danger p-2" role="alert">
+                                    Invalid submission. Try again.
+                                </div>
+                            {% endif %}
+                        {% else %}
+                        <div>here</div>
+                        {% endif %}
 						<!-- Date -->
                         <div class="mb-3">
                             <label for="date"><b>When</b></label>
@@ -159,6 +175,54 @@
                             </div>
                         </div>
 
+
+                        <!-- Input for CARDIO  ######################-->
+                        <div id='cardio_input' style="display: none;">
+                            <div class="mb-3">
+                                <label for="cardio_activity"><b>Activity</b></label>
+                                <input type="text" class="form-control" name="cardio_activity">
+                            </div>
+                            <div class="mb-3">
+                                <label for="cardio_distance"><b>Distance</b> (km.)</label>
+                                <input type="number" class="form-control" name="cardio_distance" step=""/>
+                            </div>
+                            <div class="mb-3">
+                                <label><b>Time</b></label>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="cardio_minutes">Minutes</label>
+                                        <input type="number" class="form-control" name="cardio_minutes" step="1" min="0"/>
+                                    </div>
+                                    <div class="col">
+                                        <label for="cardio_seconds">Seconds</label>
+                                        <input type="number" class="form-control" name="cardio_seconds" step="1" min="0" max="59"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Input for HERO  ######################-->
+                        <div id='hero_input' style="display: none;">
+                            <div class="mb-3">
+                                <label for="hero_name"><b>Hero WOD</b></label>
+                                <input type="text" class="form-control" name="hero_name">
+                            </div>
+                            <div class="mb-3">
+                                <label><b>Time</b></label>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="hero_minutes">Minutes</label>
+                                        <input type="number" class="form-control" name="hero_minutes" step="1" min="0"/>
+                                    </div>
+                                    <div class="col">
+                                        <label for="hero_seconds">Seconds</label>
+                                        <input type="number" class="form-control" name="hero_seconds" step="1" min="0" max="59"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="mb-3">
                             <label for="activity_comments"><b>Comments</b></label>
                             <textarea class="form-control" name="activity_comments" rows="1"></textarea>
@@ -271,6 +335,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const emomInput = document.getElementById("emom_input");
     const amrapInput = document.getElementById("amrap_input");
     const rftInput = document.getElementById("rft_input");
+    const cardioInput = document.getElementById("cardio_input");
+    const heroInput = document.getElementById("hero_input");
 
     radioButtons.forEach(function(radioButton) {
         radioButton.addEventListener("change", function() {
@@ -281,6 +347,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 emomInput.style.display = "none";
                 amrapInput.style.display = "none";
                 rftInput.style.display = "none";
+                cardioInput.style.display = "none";
+                heroInput.style.display = "none";
 
             } else if (this.value === "emom" && this.checked) {
 
@@ -288,6 +356,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 weightliftingInput.style.display = "none";
                 amrapInput.style.display = "none";
                 rftInput.style.display = "none";
+                cardioInput.style.display = "none";
+                heroInput.style.display = "none";
 
             } else if (this.value === "amrap" && this.checked) {
 
@@ -295,6 +365,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 weightliftingInput.style.display = "none";
                 amrapInput.style.display = "block";
                 rftInput.style.display = "none";
+                cardioInput.style.display = "none";
+                heroInput.style.display = "none";
 
             } else if (this.value === "rft" && this.checked) {
 
@@ -302,6 +374,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 weightliftingInput.style.display = "none";
                 amrapInput.style.display = "none";
                 rftInput.style.display = "block";
+                cardioInput.style.display = "none";
+                heroInput.style.display = "none";
+
+            } else if (this.value === "cardio" && this.checked) {
+
+                emomInput.style.display = "none";
+                weightliftingInput.style.display = "none";
+                amrapInput.style.display = "none";
+                rftInput.style.display = "none";
+                cardioInput.style.display = "block";
+                heroInput.style.display = "none";
+
+            } else if (this.value === "hero" && this.checked) {
+
+            emomInput.style.display = "none";
+            weightliftingInput.style.display = "none";
+            amrapInput.style.display = "none";
+            rftInput.style.display = "none";
+            cardioInput.style.display = "none";
+            heroInput.style.display = "block";
 
             } else {
 
@@ -309,6 +401,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 emomInput.style.display = "none";
                 amrapInput.style.display = "none";
                 rftInput.style.display = "none";
+                cardioInput.style.display = "none";
             }
         });
     });
