@@ -74,7 +74,7 @@ CREATE TABLE amrap (
 	comment VARCHAR(100) DEFAULT NULL,
 	
 	FOREIGN KEY (user_id) references app_user(username),
-	CONSTRAINT valid_amrap_score CHECK (rounds_plus_reps ~ '[0-9]+\+*[0-9]*')
+	CONSTRAINT valid_amrap_score CHECK (rounds_plus_reps ~ '^[0-9]{1,}(\+[0-9]+){0,}$')
 );
             
 CREATE TABLE emom (
