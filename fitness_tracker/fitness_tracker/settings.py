@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 import os
 from pathlib import Path
 
-load_dotenv()
+load_dotenv(override=True)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,12 +79,13 @@ WSGI_APPLICATION = 'fitness_tracker.wsgi.application'
 
 DATABASES = {
     "default": {
-        "NAME": os.getenv("TEST_DB_USER"),
         "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("TEST_DB_NAME"),
         "USER": os.getenv("TEST_DB_USER"),
         "PASSWORD": os.getenv("TEST_DB_PASSWORD"),
         "HOST": os.getenv("TEST_DB_HOST"),
         "PORT": os.getenv("TEST_DB_PORT"),
+        'CONN_MAX_AGE': 1000
     }
 }
 
