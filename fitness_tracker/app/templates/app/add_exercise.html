@@ -38,8 +38,6 @@
                                     Invalid submission. Try again.
                                 </div>
                             {% endif %}
-                        {% else %}
-                        <div>here</div>
                         {% endif %}
 						<!-- Date -->
                         <div class="mb-3">
@@ -54,21 +52,21 @@
 								<input type="radio" class="btn-check" name="exercise_type" value='weight_reps' id="is_weight_reps" autocomplete="off" required>
 								<label class="btn btn-outline-primary btn-sm" for="is_weight_reps">Weight & Reps</label>
 							
-								<input type="radio" class="btn-check" name="exercise_type" value='amrap' id="is_amrap" autocomplete="off">
+								<input type="radio" class="btn-check" name="exercise_type" value='amrap' id="is_amrap" autocomplete="off"/>
 								<label class="btn btn-outline-primary btn-sm" for="is_amrap">AMRAP</label>
 															
-								<input type="radio" class="btn-check" name="exercise_type" value='emom' id="is_emom" autocomplete="off">
+								<input type="radio" class="btn-check" name="exercise_type" value='emom' id="is_emom" autocomplete="off"/>
 								<label class="btn btn-outline-primary btn-sm" for="is_emom">EMOM</label>
 							</div>
 							<div class="d-grid gap-2 d-md-flex justify-content-md-center">						
 						
-								<input type="radio" class="btn-check" name="exercise_type" value='rft' id="is_rft" autocomplete="off">
+								<input type="radio" class="btn-check" name="exercise_type" value='rft' id="is_rft" autocomplete="off"/>
 								<label class="btn btn-outline-primary btn-sm" for="is_rft">Rounds for Time</label>
 							
-								<input type="radio" class="btn-check" name="exercise_type" value='hero' id="is_hero" autocomplete="off">
+								<input type="radio" class="btn-check" name="exercise_type" value='hero' id="is_hero" autocomplete="off"/>
 								<label class="btn btn-outline-primary btn-sm" for="is_hero">Hero WOD</label>
 
-								<input type="radio" class="btn-check" name="exercise_type" value='cardio' id="is_cardio" autocomplete="off">
+								<input type="radio" class="btn-check" name="exercise_type" value='cardio' id="is_cardio" autocomplete="off"/>
 								<label class="btn btn-outline-primary btn-sm" for="is_cardio">Cardio</label>
 							</div>
 						</div>
@@ -104,15 +102,15 @@
                             <div class="row mb-3">
                                 <div class="col">
                                     <label for="weight"><b>Weight</b></label>
-                                    <input type="number" class="form-control" id="weight" name="weight" step="any" min="0"/>
+                                    <input type="number" class="form-control" id="weight" name="weight" step="any" min="0" autocomplete="off"/>
                                 </div>
                                 <div class="col">
                                     <label for="n_reps"><b>Reps</b></label>
-                                    <input type="number" class="form-control" id="n_reps" name="n_reps" step="1" min="1"/>
+                                    <input type="number" class="form-control" id="n_reps" name="n_reps" step="1" min="1" autocomplete="off"/>
                                 </div>
                                 <div class="col">
                                     <label for="n_sets"><b>Sets</b></label>
-                                    <input type="number" class="form-control" id="n_sets" name="n_sets" step="1" value="1" />
+                                    <input type="number" class="form-control" id="n_sets" name="n_sets" step="1" value="1" autocomplete="off"/>
                                 </div>
                             </div>
                             <div class="mb-3 form-check">
@@ -125,11 +123,11 @@
                         <div id='emom_input' style="display: none;">
                             <div class="mb-3">
                                 <label for="emom_duration"><b>Duration</b></label>
-                                <input type="number" class="form-control" name="emom_duration" step="1" min="1"/>
+                                <input type="number" class="form-control" name="emom_duration" step="1" min="1" autocomplete="off"/>
                             </div>
                             <div class="mb-3">
                                 <label for="emom_wod"><b>WOD</b></label>
-                                <textarea class="form-control" name="emom_wod" rows="3" placeholder="Describe WOD..."></textarea>
+                                <textarea class="form-control" name="emom_wod" rows="3" placeholder="Describe WOD..." autocomplete="off"></textarea>
                             </div>
                         </div>
 
@@ -137,15 +135,15 @@
                         <div id='amrap_input' style="display: none;">
                             <div class="mb-3">
                                 <label for="amrap_timecap"><b>Timecap</b></label>
-                                <input type="number" class="form-control" name="amrap_timecap" step="1" min="1"/>
+                                <input type="number" class="form-control" name="amrap_timecap" step="1" min="1" autocomplete="off"/>
                             </div>
                             <div class="mb-3">
                                 <label for="amrap_wod"><b>WOD</b></label>
-                                <textarea class="form-control" name="amrap_wod" rows="3" placeholder="Describe WOD..."></textarea>
+                                <textarea class="form-control" name="amrap_wod" rows="3" placeholder="Describe WOD..." autocomplete="off"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="amrap_score"><b>Rounds and Reps</b></label>
-                                <input type="text" class="form-control" name="amrap_score" id="amrap_score" rows="3" placeholder="Rounds plus reps in the format 3+10">
+                                <input type="text" class="form-control" name="amrap_score" id="amrap_score" rows="3" autocomplete="off" placeholder="Rounds plus reps in the format 3+10">
                                 <div id="amrap_score_error" style="color: red; display: none;">Invalid AMRAP score format. Must be in the format: [Rounds]+[Reps]</div>
                             </div>
                         </div>
@@ -154,22 +152,22 @@
                         <div id='rft_input' style="display: none;">
                             <div class="mb-3">
                                 <label for="rft_rounds"><b>Rounds</b></label>
-                                <input type="number" class="form-control" name="rft_rounds" step="1" min="1"/>
+                                <input type="number" class="form-control" name="rft_rounds" step="1" min="1" autocomplete="off"/>
                             </div>
                             <div class="mb-3">
                                 <label for="rft_wod"><b>WOD</b></label>
-                                <textarea class="form-control" name="rft_wod" rows="3" placeholder="Describe WOD..."></textarea>
+                                <textarea class="form-control" name="rft_wod" rows="3" placeholder="Describe WOD..." autocomplete="off" ></textarea>
                             </div>
                             <div class="mb-3">
                                 <label><b>Time</b></label>
                                 <div class="row">
                                     <div class="col">
                                         <label for="rft_minutes">Minutes</label>
-                                        <input type="number" class="form-control" name="rft_minutes" step="1" min="0" max="59"/>
+                                        <input type="number" class="form-control" name="rft_minutes" step="1" min="0" max="59" autocomplete="off"/>
                                     </div>
                                     <div class="col">
                                         <label for="rft_seconds">Seconds</label>
-                                        <input type="number" class="form-control" name="rft_seconds" step="1" min="0" max="59"/>
+                                        <input type="number" class="form-control" name="rft_seconds" step="1" min="0" max="59" autocomplete="off"/>
                                     </div>
                                 </div>
                             </div>
@@ -180,22 +178,22 @@
                         <div id='cardio_input' style="display: none;">
                             <div class="mb-3">
                                 <label for="cardio_activity"><b>Activity</b></label>
-                                <input type="text" class="form-control" name="cardio_activity">
+                                <input type="text" class="form-control" name="cardio_activity" autocomplete="off">
                             </div>
                             <div class="mb-3">
                                 <label for="cardio_distance"><b>Distance</b> (km.)</label>
-                                <input type="number" class="form-control" name="cardio_distance" step=""/>
+                                <input type="number" class="form-control" name="cardio_distance" step="" autocomplete="off"/>
                             </div>
                             <div class="mb-3">
                                 <label><b>Time</b></label>
                                 <div class="row">
                                     <div class="col">
                                         <label for="cardio_minutes">Minutes</label>
-                                        <input type="number" class="form-control" name="cardio_minutes" step="1" min="0"/>
+                                        <input type="number" class="form-control" name="cardio_minutes" step="1" min="0" autocomplete="off"/>
                                     </div>
                                     <div class="col">
                                         <label for="cardio_seconds">Seconds</label>
-                                        <input type="number" class="form-control" name="cardio_seconds" step="1" min="0" max="59"/>
+                                        <input type="number" class="form-control" name="cardio_seconds" step="1" min="0" max="59" autocomplete="off"/>
                                     </div>
                                 </div>
                             </div>
@@ -206,18 +204,18 @@
                         <div id='hero_input' style="display: none;">
                             <div class="mb-3">
                                 <label for="hero_name"><b>Hero WOD</b></label>
-                                <input type="text" class="form-control" name="hero_name">
+                                <input type="text" class="form-control" name="hero_name" autocomplete="off">
                             </div>
                             <div class="mb-3">
                                 <label><b>Time</b></label>
                                 <div class="row">
                                     <div class="col">
                                         <label for="hero_minutes">Minutes</label>
-                                        <input type="number" class="form-control" name="hero_minutes" step="1" min="0"/>
+                                        <input type="number" class="form-control" name="hero_minutes" step="1" min="0" autocomplete="off"/>
                                     </div>
                                     <div class="col">
                                         <label for="hero_seconds">Seconds</label>
-                                        <input type="number" class="form-control" name="hero_seconds" step="1" min="0" max="59"/>
+                                        <input type="number" class="form-control" name="hero_seconds" step="1" min="0" max="59" autocomplete="off"/>
                                     </div>
                                 </div>
                             </div>
@@ -225,7 +223,7 @@
 
                         <div class="mb-3">
                             <label for="activity_comments"><b>Comments</b></label>
-                            <textarea class="form-control" name="activity_comments" rows="1"></textarea>
+                            <textarea class="form-control" name="activity_comments" rows="1" autocomplete="off"></textarea>
                         </div>
                         <div id="validator" class="form-text mb-2" style="color: red;"></div>
                         <button type="submit" class="btn btn-primary btn-block" style="background-color: #0738C1; border: none;">Add</button>
