@@ -81,7 +81,7 @@
                         <div id='weightlifting_input'>
                             <div class="mb-3">
                                 <label for="exercise"><b>Exercise</b></label>
-                                <input type="text" class="form-control" id="exercise" placeholder="" autocomplete="off">
+                                <input type="text" class="form-control" name="exercise" id="exercise" placeholder="" autocomplete="off">
                                 <div class="list-group" id="exercise_list"></div>
                             </div>
                             <div class="row mb-3">
@@ -388,48 +388,58 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    let availableExercises = [
-        'Bench Press',
-        'Deadlift',
-        'pull-ups',
-        'barbell row',
-        'barbell ski',
-        'barbell curls'
-    ];
 
-    var exercise_input_box = document.getElementById('exercise')
+const csrftoken = ('; '+document.cookie).split(`; csrftoken=`).pop().split(';')[0];
+const root_url = location.protocol + '//' + location.host;
 
-    exercise_input_box.onkeyup = function(){
-        let result = [];
-        let input = exercise_input_box.value;
-        const exercise_list = document.getElementById("exercise_list");
-
-        if (input.length){
-            result  = availableExercises.filter((keyword)=>{
-                return keyword.toLowerCase().includes(input.toLowerCase());
-            });
-
-            console.log(display(result));
-            exercise_list.innerHTML = display(result);
-        } else {
-            exercise_list.innerHTML = '';
+function fetchExercises() {
+    return fetch(root_url + '/testing', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
         }
-    };
-
-    function display(result){
-        const content = result.map((option)=>{
-            return '<a class="list-group-item" onclick=selectInput(this)>' + option + '</a>';
-        }).join('');
-        return content
-    };
-
-    function selectInput(option){
-        exercise_input_box.value = option.innerHTML;
-        exercise_list.innerHTML = '';
-    };
-
+    })
+    .then((response) => { 
+        return response.json().then((data) => {
+            console.log(data);
+            return data;
+    })
+    .catch((err) => {console.log(err);
+    }) 
 });
+}
+
+var availableExercises = fetchExercises();
+var exercise_input_box = document.getElementById('exercise');
+var exercise_list = document.getElementById("exercise_list");
+
+exercise_input_box.onkeyup = function(){
+    let result = [];
+    let input = exercise_input_box.value;
+
+    if (input.length){
+        result  = availableExercises.filter((keyword)=>{
+            return keyword.toLowerCase().includes(input.toLowerCase());
+        });
+
+        exercise_list.innerHTML = display(result);
+    } else {
+        exercise_list.innerHTML = '';
+    }
+};
+
+function display(result){
+    const content = result.map((option)=>{
+        return '<a class="list-group-item" onclick="selectInput(this)">' + option + '</a>';
+    }).join('');
+    return content;
+};
+
+function selectInput(option){
+    exercise_input_box.value = option.innerHTML;
+    exercise_list.innerHTML = '';
+};
 
 
 </script>
