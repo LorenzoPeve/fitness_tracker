@@ -11,6 +11,12 @@
         border-color: rgba(0, 0, 0, 0.6);
     }
 
+    .list-group-item:hover {
+        text-decoration: none;
+        color: white;
+        background-color: #0738C1;
+    }
+
 </style>
 {% endblock %}
 {% block content %}
@@ -75,29 +81,8 @@
                         <div id='weightlifting_input'>
                             <div class="mb-3">
                                 <label for="exercise"><b>Exercise</b></label>
-                                <select class="form-select" id='exercise_select' name="exercise">
-                                    {% for exercise in exercises %}
-                                    <option value="{{ exercise }}">{{exercise |title }}</option>
-                                    {% endfor %}
-                                    <option value="add_your_own"><b>------- Add your own -------</b></option>
-                                </select>
-                                <div class="d-flex justify-content-end">
-                                    <p class="small text-muted"><em>Scroll to bottom to add your own</em></p>
-                                </div>
-                                <!-- Add your Own -->
-                                <div id="add_your_own" style="display: none;">
-                                    <div class="mb-3">
-                                        <label for="new_exercise"><b>New Exercise</b></label>
-                                        <input type="text" class="form-control" id="new_exercise" name="new_exercise">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="category"><b>Category</b></label>
-                                        <select class="form-select" id="category" name="category">
-                                            <option value="category1">Category 1</option>
-                                            <option value="category2">Category 2</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                <input type="text" class="form-control" id="exercise" placeholder="" autocomplete="off">
+                                <div class="list-group" id="exercise_list"></div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col">
@@ -402,5 +387,50 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    let availableExercises = [
+        'Bench Press',
+        'Deadlift',
+        'pull-ups',
+        'barbell row',
+        'barbell ski',
+        'barbell curls'
+    ];
+
+    var exercise_input_box = document.getElementById('exercise')
+
+    exercise_input_box.onkeyup = function(){
+        let result = [];
+        let input = exercise_input_box.value;
+        const exercise_list = document.getElementById("exercise_list");
+
+        if (input.length){
+            result  = availableExercises.filter((keyword)=>{
+                return keyword.toLowerCase().includes(input.toLowerCase());
+            });
+
+            console.log(display(result));
+            exercise_list.innerHTML = display(result);
+        } else {
+            exercise_list.innerHTML = '';
+        }
+    };
+
+    function display(result){
+        const content = result.map((option)=>{
+            return '<a class="list-group-item" onclick=selectInput(this)>' + option + '</a>';
+        }).join('');
+        return content
+    };
+
+    function selectInput(option){
+        exercise_input_box.value = option.innerHTML;
+        exercise_list.innerHTML = '';
+    };
+
+});
+
+
 </script>
 {% endblock %}
