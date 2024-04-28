@@ -238,94 +238,92 @@
 {% block js_scripts %}
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-
-  var currentDate = new Date().toISOString().split('T')[0];
-  document.getElementById("date").value = currentDate;
+    var currentDate = new Date().toISOString().split('T')[0];
+    document.getElementById("date").value = currentDate;
 });
-
-document.addEventListener("DOMContentLoaded", function () {
-
-  var weight = document.getElementById("weight");
-  var messageBox = document.getElementById("validator");
-
-    function validate_weight() {
-      if (weight.value < 0) {
-          messageBox.innerHTML = "Weight value cannot be negative";
-      } else {
-      messageBox.innerHTML = "";
-      }
-  }
-  weight.addEventListener("keyup", validate_weight);
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-
-  var reps = document.getElementById("n_reps");
-  var messageBox = document.getElementById("validator");
-
-  function validate_weight() {
-    if (reps.value < 1) {
-      messageBox.innerHTML = "Reps must be >= 1.";
-    } else {
-      messageBox.innerHTML = "";
-    }
-  }
-  reps.addEventListener("keyup", validate_weight);
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-
-  var sets = document.getElementById("n_sets");
-  var messageBox = document.getElementById("validator");
-
-  function validate_weight() {
-    if (sets.value < 1) {
-        messageBox.innerHTML = "Sets must be >= 1.";
-    } else {
-      messageBox.innerHTML = "";
-    }
-  }
-  sets.addEventListener("keyup", validate_weight);
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-
-	var b1 = document.getElementsByName("exercise_type");
-    for (var i = 0; i < b1.length; i++) {
-        b1[i].addEventListener('change', function() {
-            // Reset color for all buttons
-            for (var j = 0; j < b1.length; j++) {
-                b1[j].nextElementSibling.style.backgroundColor = "";
-                b1[j].nextElementSibling.style.borderColor = "";
-            }
-            
-            // Change color for the clicked button
-            if (this.checked) {
-                this.nextElementSibling.style.backgroundColor = "#0738C1";
-                this.nextElementSibling.style.borderColor = "#0738C1";
-            }
-        });
-    }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const amrapScoreInput = document.getElementById("amrap_score");
-    const amrapScoreError = document.getElementById("amrap_score_error");
-
-    amrapScoreInput.addEventListener("input", function() {
-        const inputValue = amrapScoreInput.value.trim();
-        const regex = /^[0-9]+\+*[0-9]*$/;
-
-        if (inputValue.length > 0 && !regex.test(inputValue)) {
-            amrapScoreError.style.display = "block";
+  
+  document.addEventListener("DOMContentLoaded", function () {
+  
+    var weight = document.getElementById("weight");
+    var messageBox = document.getElementById("validator");
+  
+      function validate_weight() {
+        if (weight.value < 0) {
+            messageBox.innerHTML = "Weight value cannot be negative";
         } else {
-            amrapScoreError.style.display = "none";
+        messageBox.innerHTML = "";
+        }
+    }
+    weight.addEventListener("keyup", validate_weight);
+});
+  
+  document.addEventListener("DOMContentLoaded", function () {
+  
+    var reps = document.getElementById("n_reps");
+    var messageBox = document.getElementById("validator");
+  
+    function validate_weight() {
+      if (reps.value < 1) {
+        messageBox.innerHTML = "Reps must be >= 1.";
+      } else {
+        messageBox.innerHTML = "";
+      }
+    }
+    reps.addEventListener("keyup", validate_weight);
+});
+  
+  document.addEventListener("DOMContentLoaded", function () {
+  
+    var sets = document.getElementById("n_sets");
+    var messageBox = document.getElementById("validator");
+  
+    function validate_weight() {
+      if (sets.value < 1) {
+          messageBox.innerHTML = "Sets must be >= 1.";
+      } else {
+        messageBox.innerHTML = "";
+      }
+    }
+    sets.addEventListener("keyup", validate_weight);
+});
+  
+document.addEventListener("DOMContentLoaded", function () {
+
+var b1 = document.getElementsByName("exercise_type");
+for (var i = 0; i < b1.length; i++) {
+    b1[i].addEventListener('change', function() {
+
+        for (var j = 0; j < b1.length; j++) {
+            b1[j].nextElementSibling.style.backgroundColor = "";
+            b1[j].nextElementSibling.style.borderColor = "";
+        }
+        
+        if (this.checked) {
+            this.nextElementSibling.style.backgroundColor = "#0738C1";
+            this.nextElementSibling.style.borderColor = "#0738C1";
         }
     });
+}
 });
-
-
+  
+  document.addEventListener("DOMContentLoaded", function () {
+  
+      const amrapScoreInput = document.getElementById("amrap_score");
+      const amrapScoreError = document.getElementById("amrap_score_error");
+  
+      amrapScoreInput.addEventListener("input", function() {
+          const inputValue = amrapScoreInput.value.trim();
+          const regex = /^[0-9]+\+*[0-9]*$/;
+  
+          if (inputValue.length > 0 && !regex.test(inputValue)) {
+              amrapScoreError.style.display = "block";
+          } else {
+              amrapScoreError.style.display = "none";
+          }
+      });
+  });
+  
+  
 document.addEventListener("DOMContentLoaded", function () {
 
     const radioButtons = document.querySelectorAll('input[name="exercise_type"]');
@@ -403,10 +401,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-
-
 });
-
 </script>
 {% endblock %}
-
