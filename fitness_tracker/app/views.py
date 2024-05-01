@@ -15,6 +15,18 @@ def index(request):
         return render(request, 'app/welcome.html')
 
 @login_required
+def my_records(request):
+
+    if request.method == "GET":
+
+        return render(
+            request,
+            "app/records.html",
+            )
+
+
+
+@login_required
 def get_user_exercises(request):
     exercises = database.get_user_exercises(request.user.username)
     return JsonResponse(exercises, safe=False)
@@ -78,10 +90,6 @@ def register(request):
 def add_exercise(request):
 
     if request.method == "GET":
-
-        if 'exercises_list' not in request.session:
-            exercises = database.get_user_exercises(request.user.username)
-            request.session['exercises_list'] = exercises
 
         return render(
             request,

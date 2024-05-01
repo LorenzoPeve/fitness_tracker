@@ -10,4 +10,5 @@ urlpatterns = [
     path("logexercise/sucess", views.add_exercise_sucess, name="add_exercise_sucess"),
     path("logexercise/error", views.add_exercise_failure, name="add_exercise_failure"),
     path("exercises", views.get_user_exercises, name="get_user_exercises"),
+    path("my_records", views.my_records, name="my_records"),
 ]
