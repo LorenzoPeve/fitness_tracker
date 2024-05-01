@@ -83,6 +83,7 @@
                                 <label for="exercise"><b>Exercise</b></label>
                                 <input type="text" class="form-control" name="exercise" id="exercise" placeholder="" autocomplete="off">
                                 <div class="list-group" id="exercise_list"></div>
+                                <div id="exercise_name_too_long" style="color: red; display: none;">Character limit of 30 exceeded.</div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col">
@@ -388,6 +389,21 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  
+  const exerciseInput = document.getElementById("exercise");
+  const exerciseError = document.getElementById("exercise_name_too_long");
+
+  exerciseInput.addEventListener("input", function() {
+      const inputValue = exerciseInput.value.trim();
+
+      if (inputValue.length > 30) {
+        exerciseError.style.display = "block";
+      } else {
+        exerciseError.style.display = "none";
+      }
+  });
+});
 
 const csrftoken = ('; '+document.cookie).split(`; csrftoken=`).pop().split(';')[0];
 const root_url = location.protocol + '//' + location.host;
