@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.db import IntegrityError
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 import psycopg2
 
@@ -14,9 +14,10 @@ def index(request):
     else:
         return render(request, 'app/welcome.html')
 
-def test(request):
-    print(request)
-    return "hello world"
+@login_required
+def get_user_exercises(request):
+    exercises = database.get_user_exercises(request.user.username)
+    return JsonResponse(exercises, safe=False)
 
 def login_view(request):
 
@@ -72,8 +73,6 @@ def register(request):
     user.save()    
     login(request, user)
     return redirect("index")
-
-
 
 @login_required
 def add_exercise(request):

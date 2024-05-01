@@ -410,7 +410,7 @@ const root_url = location.protocol + '//' + location.host;
 
 async function fetchExercises() {
     try {
-        const response = await fetch(root_url + '/testing', {
+        const response = await fetch(root_url + '/exercises', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
