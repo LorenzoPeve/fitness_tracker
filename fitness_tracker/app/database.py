@@ -28,11 +28,11 @@ def get_user_exercises(username: str) -> list[str]:
     cur = CONN.cursor()
 
     cur.execute(
-            """
-            SELECT DISTINCT exercise FROM weightlifting
-            WHERE user_id = %s
-            """, (username,)               
-        )
+        """
+        SELECT DISTINCT exercise FROM weightlifting
+        WHERE user_id = %s
+        """, (username,)               
+    )
     
     return [s[0] for s in sorted(cur.fetchall())]
 
