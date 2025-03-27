@@ -23,7 +23,24 @@ def my_records(request):
             request,
             "app/records.html",
             )
+    
+    try:
+        records = database.get_exercise_records(
+            request.user.username,
+            request.POST['exercise'],
+            request.POST['n_reps'])
+    except Exception as e:
+        raise e
 
+    return render(
+        request,
+        "app/records.html",
+        context={
+            'exercise': request.POST['exercise'].title(),
+            'records': records,
+            'n_reps': request.POST['n_reps']
+        }
+    )
 
 
 @login_required
@@ -90,11 +107,8 @@ def register(request):
 def add_exercise(request):
 
     if request.method == "GET":
+        return render(request, "app/add_exercise.html")
 
-        return render(
-            request,
-            "app/add_exercise.html",
-            {'exercises': request.session['exercises_list']})
     try:
         if request.POST['exercise_type'] == 'weight_reps':
 

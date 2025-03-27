@@ -1,0 +1,19 @@
+display error warning
+add hero wod
+
+
+exercise search bar
+
+    query to backend
+
+    get list of exercises as a dropdown
+
+    filter those exercises based on the value on exercise
+
+    if you select one
+        dropdown dissapears
+        text gets complete
+
+    If words not filtered
+        dropdown dissapears
+        text governs

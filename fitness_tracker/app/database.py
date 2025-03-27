@@ -1,3 +1,4 @@
+from datetime import datetime
 import os
 import psycopg2
 from dotenv import load_dotenv
@@ -169,3 +170,34 @@ def add_rounds_for_time(
         raise e
     else:
         CONN.commit()
+
+def get_exercise_records(
+    username: str,
+    exercise: str,
+    reps: float
+    ) -> list[tuple]:
+    """
+    Returns a list of tuples in the form (date, weight_lifted) for a
+    given user and exercise.
+    """
+    cur = CONN.cursor()
+    cur.execute(
+        """
+        SELECT date, weight
+        FROM weightlifting
+        WHERE
+            user_id = %s
+            AND exercise = %s
+            AND reps = %s
+        ORDER BY date DESC;
+        """, (username, exercise, reps)               
+        )
+    
+    records = [
+        (i[0].strftime("%m-%d-%Y"), float(i[1])) 
+        for i in cur.fetchall()
+    ]
+
+    if len(records) == 0:
+        return None
+    return records
